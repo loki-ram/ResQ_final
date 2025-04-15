@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Response Information</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        #map {
+            height: 80vh;
+            width: 100%;
+        }
+
+        .dropdown-container {
+            padding: 10px;
+            text-align: center;
+        }
+        
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Disaster Response Information</h1>
+        <p>Find nearby hospitals, clinics, shops, shelters, and other resources.</p>
+    </div>
+
+    <div class="dropdown-container">
+        <label for="placeType">Select a place type:</label>
+        <select id="placeType" onchange="findNearbyPlaces()">
+            <option value="hospital">Hospitals</option>
+            <option value="clinic">Clinics</option>
+            <option value="shop">Shops</option>
+            <option value="shelter">Shelters</option>
+        </select>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+    <script>
+        let map;
+        let userLocation;
+        let userMarker;
+        let routeControl;
+
+        function initMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    userLocation = [position.coords.latitude, position.coords.longitude];
+                    map = L.map('map').setView(userLocation, 14);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+                    userMarker = L.marker(userLocation).addTo(map)
+                        .bindPopup("You are here")
+                        .openPopup();
+                    findNearbyPlaces();
+                }, function() {
+                    alert("Geolocation failed. Please allow access to location.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function findNearbyPlaces() {
+            const placeType = document.getElementById('placeType').value;
+            map.eachLayer(function(layer) {
+                if (layer instanceof L.Marker && layer !== userMarker) {
+                    map.removeLayer(layer);
+                }
+            });
+            const overpassUrl = 'https://overpass-api.de/api/interpreter';
+            let query = '';
+
+            if (placeType === 'hospital') {
+                query = `
+                    [out:json];
+                    (
+                      node["amenity"="hospital"](around:5000, ${userLocation[0]}, ${userLocation[1]});
+                    );
+                    out body;
+                `;
+            } else if (placeType === 'clinic') {
+                query = `
+                    [out:json];
+                    (
+                      node["amenity"="clinic"](around:5000, ${userLocation[0]}, ${userLocation[1]});
+                    );
+                    out body;
+                `;
+            } else if (placeType === 'shop') {
+                query = `
+        [out:json];
+        (
+          node["shop"="supermarket"](around:5000, ${userLocation[0]}, ${userLocation[1]});
+          node["shop"="pharmacy"](around:5000, ${userLocation[0]}, ${userLocation[1]});
+          node["shop"="convenience"](around:5000, ${userLocation[0]}, ${userLocation[1]});
+          node["amenity"="vending_machine"](around:5000, ${userLocation[0]}, ${userLocation[1]});
+        );
+        out body;
+    `;
+            } else if (placeType === 'shelter') {
+                query = `
+                    [out:json];
+                    (
+                      node["amenity"="shelter"](around:5000, ${userLocation[0]}, ${userLocation[1]});
+                    );
+                    out body;
+                `;
+            }
+
+            fetch(overpassUrl + '?data=' + encodeURIComponent(query))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.elements) {
+                        data.elements.forEach(place => {
+                            const lat = place.lat;
+                            const lon = place.lon;
+                            const name = place.tags.name || "Unnamed";
+                            const placeMarker = L.marker([lat, lon]).addTo(map)
+                                .bindPopup(name)
+                                .on('click', function() {
+                                    drawRoute([lat, lon]);
+                                });
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.error('Error fetching Overpass API data:', err);
+                });
+        }
+
+        function drawRoute(destination) {
+            if (routeControl) {
+                map.removeControl(routeControl);
+            }
+            routeControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(userLocation[0], userLocation[1]),
+                    L.latLng(destination[0], destination[1])
+                ],
+                routeWhileDragging: true
+            }).addTo(map);
+        }
+
+        initMap();
+    </script>
+</body>
+</html>

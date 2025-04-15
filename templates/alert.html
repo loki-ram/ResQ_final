@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Disaster Alerts Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        #map {
+            height: 500px;
+        }
+        .alert-container {
+            margin: 20px;
+            padding: 20px;
+            background-color: #ffcc00;
+            border-radius: 5px;
+        }
+        .alert {
+            padding: 10px;
+            background-color: #f8f8f8;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Real-time Disaster Alerts Map</h1>
+        <p>Stay informed about ongoing disasters and their locations.</p>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="alert-container" id="alerts">
+        <h3>Latest Alerts:</h3>
+        <div id="earthquake-alerts"></div>
+        <div id="weather-alerts"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([37.7749, -122.4194], 5);  // Set default view (Latitude, Longitude, Zoom Level)
+
+        // Add OpenStreetMap tile layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Function to fetch earthquake alerts from USGS API
+        function fetchEarthquakeAlerts() {
+            fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=5')
+                .then(response => response.json())
+                .then(data => {
+                    const earthquakes = data.features;
+                    const earthquakeDiv = document.getElementById('earthquake-alerts');
+                    earthquakeDiv.innerHTML = '<h4>Recent Earthquakes:</h4>';
+
+                    earthquakes.forEach(earthquake => {
+                        // Extract coordinates (Latitude and Longitude)
+                        const latitude = earthquake.geometry.coordinates[1];
+                        const longitude = earthquake.geometry.coordinates[0];
+                        
+                        // Add marker on the map
+                        L.marker([latitude, longitude])
+                            .addTo(map)
+                            .bindPopup(`<strong>${earthquake.properties.title}</strong><br>
+                                        Magnitude: ${earthquake.properties.mag}<br>
+                                        Location: ${earthquake.properties.place}<br>
+                                        Time: ${new Date(earthquake.properties.time).toLocaleString()}`);
+
+                        // Display earthquake info
+                        const earthquakeDetails = `
+                            <div class="alert">
+                                <strong>${earthquake.properties.title}</strong><br>
+                                Magnitude: ${earthquake.properties.mag}<br>
+                                Location: ${earthquake.properties.place}<br>
+                                Time: ${new Date(earthquake.properties.time).toLocaleString()}
+                            </div>
+                        `;
+                        earthquakeDiv.innerHTML += earthquakeDetails;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching earthquake data:', error);
+                });
+        }
+
+        // Function to fetch weather alerts from OpenWeather API
+        function fetchWeatherAlerts() {
+            const apiKey = 'f45747782f9dbb145b7e866c825ebf5b';
+            const lat = 37.7749;  // Latitude of your region
+            const lon = -122.4194;  // Longitude of your region
+
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,daily&appid=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    const alerts = data.alerts;
+                    const weatherDiv = document.getElementById('weather-alerts');
+                    weatherDiv.innerHTML = '<h4>Weather Alerts:</h4>';
+
+                    if (alerts) {
+                        alerts.forEach(alert => {
+                            // Extract coordinates (Latitude and Longitude)
+                            const alertLat = lat;
+                            const alertLon = lon;
+                            
+                            // Add marker for weather alert on the map
+                            L.marker([alertLat, alertLon])
+                                .addTo(map)
+                                .bindPopup(`<strong>${alert.event}</strong><br>
+                                            Description: ${alert.description}<br>
+                                            Start Time: ${new Date(alert.start * 1000).toLocaleString()}<br>
+                                            End Time: ${new Date(alert.end * 1000).toLocaleString()}`);
+
+                            // Display weather alert info
+                            const weatherAlertDetails = `
+                                <div class="alert">
+                                    <strong>${alert.event}</strong><br>
+                                    Description: ${alert.description}<br>
+                                    Start Time: ${new Date(alert.start * 1000).toLocaleString()}<br>
+                                    End Time: ${new Date(alert.end * 1000).toLocaleString()}
+                                </div>
+                            `;
+                            weatherDiv.innerHTML += weatherAlertDetails;
+                        });
+                    } else {
+                        weatherDiv.innerHTML += '<p>No active weather alerts.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching weather alerts:', error);
+                });
+        }
+
+        // Fetch alerts on page load
+        window.onload = function() {
+            fetchEarthquakeAlerts();
+            fetchWeatherAlerts();
+        };
+    </script>
+
+</body>
+</html>

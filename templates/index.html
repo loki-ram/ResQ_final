@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResQ🚨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: black;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            animation: slideDown 1s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 18px;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #ff4500;
+        }
+
+        /* Main Container */
+        .container {
+            text-align: center;
+            margin: 80px 20px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .container h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(to right, #FF6347, #E53E3E);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #E53E3E, #B22222);
+            transform: scale(1.1);
+        }
+
+        /* Emoji Section */
+        .emoji-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 20px;
+        }
+
+        .emoji-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .red-box {
+            background-color: #FF4500;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .tooltip {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            z-index: 10;
+        }
+
+        .emoji-wrapper:hover .tooltip {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container h1 {
+                font-size: 36px;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            .emoji {
+                font-size: 30px;
+            }
+
+            .red-box {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>ResQ</h1>
+        <div>
+            <a href="/">Home</a>
+            <a href="/disaster">Disaster Updates</a>
+            <a href="/preparedness">Preparedness Tools</a>
+            <a href="/volunteer">Volunteering</a>
+            <a href="/forum">Community Forum</a>
+            <a href="/chatbot">Chatbot</a>
+            <a href="/resource">Help</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Welcome to ResQ</h1>
+        <div class="button-group">
+            <form action="/disaster" method="get">
+                <button type="submit">Real-Time Disaster Updates</button>
+            </form>
+            <form action="/preparedness" method="get">
+                <button type="submit">Preparedness Tools</button>
+            </form>
+            <form action="/volunteer" method="get">
+                <button type="submit">Volunteering Opportunities</button>
+            </form>
+            <form action="/forum" method="get">
+                <button type="submit">Community Forum</button>
+            </form>
+        </div>
+
+        <!-- Emoji Section -->
+        <div class="emoji-section">
+            <div class="emoji-wrapper" style="margin-right: 150px;">
+                
+                <div class="emoji">🌪️</div>
+                <div class="tooltip">Get real-time updates using FEMA, OpenWeather, and Relief Web APIs.</div>
+            </div>
+            <div class="emoji-wrapper" style="margin-right: 150px;">
+                
+             
+                <div class="emoji">🛠️</div>
+                <div class="tooltip">Access tailored checklists, guides, and simulations for disaster preparedness.</div>
+            </div>
+            <div class="emoji-wrapper" style="margin-right: 150px;">
+                
+                
+                <div class="emoji">🤝</div>
+                <div class="tooltip">Discover volunteering opportunities and join disaster relief efforts.</div>
+            </div>
+            <div class="emoji-wrapper" style="margin-right: 150px;">
+                
+               
+                <div class="emoji">💬</div>
+                <div class="tooltip">Engage with the community and discuss preparedness and recovery tips.</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

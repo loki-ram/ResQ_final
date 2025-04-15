@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Volunteer Page</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Header styles */
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #FF6347;
+        }
+
+        /* Link container styles */
+        .link-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Button styles */
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: #ffffff;
+            background-color: #333333;
+            border: 2px solid #FF6347;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #FF6347;
+            color: #121212;
+            cursor: pointer;
+        }
+
+        /* Footer styles */
+        footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #888888;
+        }
+
+        footer a {
+            color:#FF6347;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Volunteering Page</h1>
+    <div class="link-container">
+        <a href="/volunteer/vol" class="button">Register as a Volunteer</a>
+        <a href="/volunteer/update_person" class="button">Update Person Details</a>
+        <a href="/volunteer/view_records" class="button">View Records</a>
+    </div>
+    <footer>
+        <p class="footer-quote">"Volunteers don’t get paid, not because they’re worthless, but because they’re priceless." – Sherry Anderson</p>
+    </footer>
+</body>
+</html>

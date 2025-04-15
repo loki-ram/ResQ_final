@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask any question that you have in mind!</title>
+    <style>
+        /* Set basic styles for the whole page */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Create a full-screen section just for the chatbot */
+        .chatbot-section {
+            height: 100vh;  /* Full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;  /* Center content vertically */
+            align-items: center;      /* Center content horizontally */
+            background-color: black; /* Light background color */
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Heading style for the chatbot section */
+        .chatbot-section h1 {
+            font-size: 2.5rem;
+            color:white;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Style the iframe for the chatbot */
+        .chatbot-section iframe {
+            width: 80%;  /* Make it responsive */
+            max-width: 1000px;  /* Set max-width for better readability */
+            height: 500px;  /* Height of the chat widget */
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Chatbot Section -->
+    <div class="chatbot-section">
+        <h1>Ask any question that you have in mind!</h1>
+        <!-- Embed the Botpress chat widget using an iframe -->
+        <iframe src="https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2024/11/19/14/20241119141414-XTNQR4JD.json" title="Botpress Webchat"></iframe>
+    </div>
+
+</body>
+</html>

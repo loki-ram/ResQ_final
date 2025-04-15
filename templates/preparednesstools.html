@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Recovery Information</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .section-content {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #333;
+        }
+        .section-heading {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px;
+            background-color: orange;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            text-align: center;
+            color: white;
+        }
+        .section-heading:hover {
+            background-color: #e67e22;
+        }
+        button {
+            background: linear-gradient(toright,#FF6347,#E53E3E);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 18px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: linear-gradient(toright,#E53E3E,#B22222);
+        }
+    </style>
+</head>
+<body>
+
+    
+
+    <script>
+        function toggleSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            if (section.style.display === 'none' || section.style.display === '') {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+<body>
+
+    <div class="container">
+        <div id="disaster-sections"></div>
+    </div>
+
+    <script>
+        // Define the sections object with detailed content for Post Disaster Recovery and other sections
+        const sections = {
+            "Post Disaster Recovery": `
+                <h2>1. Immediate Steps</h2>
+                <h3>1. Clear Debris from Roads and Structures</h3>
+                <strong>Assessment and Safety:</strong>
+                <p>Conduct a rapid assessment of affected areas to identify hazards and prioritize debris removal. Ensure that safety protocols are followed to protect workers and volunteers.</p>
+                <strong>Debris Removal:</strong>
+                <p>Mobilize local authorities, emergency services, and community volunteers to clear roads, pathways, and access points to facilitate emergency response and recovery efforts. Use heavy machinery where necessary to remove large debris and ensure that roads are passable for emergency vehicles.</p>
+
+                <h3>2. Restore Basic Services (Water, Electricity, Sanitation)</h3>
+                <strong>Water Supply:</strong>
+                <p>Assess the condition of water supply systems and restore access to clean drinking water as a priority. This may involve repairing pipes, setting up temporary water distribution points, or providing bottled water.</p>
+                <strong>Electricity Restoration:</strong>
+                <p>Work with utility companies to restore electricity to affected areas. Prioritize critical facilities such as hospitals, shelters, and emergency services.</p>
+                <strong>Sanitation Services:</strong>
+                <p>Ensure that sanitation facilities are operational to prevent public health issues. This may include restoring sewage systems, providing portable toilets, and ensuring proper waste disposal.</p>
+
+                <h3>3. Rebuild Temporary Shelters</h3>
+                <strong>Emergency Shelters:</strong>
+                <p>Set up temporary shelters for displaced individuals and families. These shelters should provide basic necessities such as food, water, and hygiene facilities.</p>
+                <strong>Community Involvement:</strong>
+                <p>Involve local communities in the planning and setup of temporary shelters to ensure they meet the needs of those affected. Consider cultural and social factors in shelter design.</p>
+
+                <h2>2. Long-Term Recovery</h2>
+                <h3>1. Rebuild Homes and Public Infrastructure</h3>
+                <strong>Housing Reconstruction:</strong>
+                <p>Develop a comprehensive plan for rebuilding homes that incorporates resilient building practices to withstand future disasters. Engage affected communities in the planning process.</p>
+                <strong>Public Infrastructure:</strong>
+                <p>Assess and prioritize the repair and reconstruction of public infrastructure, including roads, bridges, schools, and healthcare facilities. Ensure that new infrastructure is built to be disaster-resistant.</p>
+
+                <h3>2. Provide Financial Aid and Resources for Affected Communities</h3>
+                <strong>Financial Assistance:</strong>
+                <p>Implement financial aid programs to support individuals and families in rebuilding their lives. This may include grants, low-interest loans, or direct cash assistance.</p>
+                <strong>Resource Allocation:</strong>
+                <p>Allocate resources for community development projects that promote economic recovery, such as small business grants and agricultural support programs.</p>
+
+                <h3>3. Offer Employment and Livelihood Recovery Programs</h3>
+                <strong>Job Creation Initiatives:</strong>
+                <p>Develop programs that create job opportunities for affected individuals, focusing on sectors that can stimulate local economies.</p>
+                <strong>Skills Training:</strong>
+                <p>Provide vocational training and skills development programs to help individuals gain employment in rebuilding efforts or other industries.</p>
+
+                <h2>3. Psychosocial Recovery</h2>
+                <h3>1. Counseling for Survivors</h3>
+                <strong>Mental Health Services:</strong>
+                <p>Establish accessible mental health services for survivors, including individual and group counseling. Train mental health professionals to address trauma and grief.</p>
+                <strong>Crisis Intervention:</strong>
+                <p>Implement crisis intervention strategies to support individuals experiencing acute distress. Provide resources for ongoing mental health support.</p>
+
+                <h3>2. Community Rebuilding Initiatives</h3>
+                <strong>Community Engagement:</strong>
+                <p>Foster community rebuilding initiatives that encourage collaboration and participation among residents. This can help restore a sense of normalcy and community cohesion.</p>
+                <strong>Cultural and Recreational Activities:</strong>
+                <p>Organize community events, workshops, and recreational activities to promote social interaction and healing. These activities can help rebuild community ties and support emotional recovery.</p>
+
+                <h3>3. Supporting the Mental Health of Children and Vulnerable Populations</h3>
+                <strong>Child-Focused Programs:</strong>
+                <p>Develop programs specifically designed to support the mental health of children affected by the disaster. This may include counseling, play therapy, and educational support.</p>
+                <strong>Support for Vulnerable Groups:</strong>
+                <p>Identify and provide targeted support for vulnerable populations, including the elderly, individuals with disabilities, and those with pre-existing mental health conditions. Ensure that services are accessible and culturally sensitive.</p>
+            `,
+            "Evacuation Steps": `
+        <h2>1. Pre-Evacuations</h2>
+        <h3>1. Pack Essentials: Food, Water, Medications</h3>
+        <strong>Food:</strong>
+        <p>Pack non-perishable food items such as canned goods, granola bars, dried fruits, and nuts. Choose items that require little to no preparation. Include a manual can opener if you are packing canned goods.</p>
+        <strong>Water:</strong>
+        <p>Store at least one gallon of water per person per day for at least three days. Consider additional water for pets. Use food-grade containers to store water and keep them in a cool, dark place.</p>
+        <strong>Medications:</strong>
+        <p>Gather all necessary prescription medications and over-the-counter drugs. Include a list of medications, dosages, and any medical conditions. Consider packing a first aid kit with essential supplies.</p>
+
+        <h3>2. Secure Your Home: Close Windows, Doors, and Gas Lines</h3>
+        <strong>Close Windows and Doors:</strong>
+        <p>Ensure all windows and doors are securely closed to prevent wind and debris from entering your home. Lock all doors to deter theft or vandalism.</p>
+        <strong>Gas Lines:</strong>
+        <p>If instructed by authorities, turn off the gas supply to your home to prevent leaks or explosions. This is typically done at the main gas valve. If you smell gas or suspect a leak, evacuate immediately and report it to emergency services.</p>
+
+        <h3>3. Turn Off Electricity if Necessary</h3>
+        <strong>Electricity:</strong>
+        <p>If you have time and it is safe to do so, turn off the main power supply to your home to prevent electrical hazards. Unplug appliances and electronics to protect them from power surges.</p>
+
+        <h2>2. During Evacuations</h2>
+        <h3>1. Follow the Designated Routes and Avoid Flooded Areas</h3>
+        <strong>Designated Routes:</strong>
+        <p>Pay attention to evacuation orders and follow the routes specified by local authorities. These routes are chosen for safety and efficiency. Use a map or GPS to navigate, and be aware of any road closures or detours.</p>
+        <strong>Avoid Flooded Areas:</strong>
+        <p>Stay away from flooded roads and areas, as they can be dangerous and may hide hazards such as downed power lines or debris. If you encounter a flooded area, turn around and find an alternate route.</p>
+
+        <h3>2. Use Public Transport if Roads Are Blocked</h3>
+        <strong>Public Transport:</strong>
+        <p>If personal vehicles are not an option due to road blockages, utilize public transportation services if available. Check local transit authorities for updates on routes and schedules. Be prepared for potential delays and crowded conditions on public transport.</p>
+        <strong>Carpooling:</strong>
+        <p>If you are evacuating with family or friends, consider carpooling to reduce the number of vehicles on the road and make travel more efficient.</p>
+
+        <h2>3. Post-Evacuations</h2>
+        <h3>1. Stay Informed on Evacuation Shelters and Safe Zones</h3>
+        <strong>Evacuation Shelters:</strong>
+        <p>Monitor local news, radio, or official social media channels for information on evacuation shelters and safe zones. Authorities will provide updates on where to go for assistance. If you are in need of shelter, follow the guidance provided by local emergency services.</p>
+        <strong>Community Resources:</strong>
+        <p>Check for community resources such as food banks, medical assistance, and counseling services that may be available to evacuees.</p>
+
+        <h3>2. Do Not Return Home Until It's Deemed Safe</h3>
+        <strong>Wait for Official Clearance:</strong>
+        <p>Do not return to your home until local authorities have declared it safe to do so. This is crucial for your safety, as there may be hazards such as unstable structures, flooding, or contamination.</p>
+        <strong>Assess Damage:</strong>
+        <p>Once it is safe to return, carefully assess your home for damage. Take photos for insurance purposes and report any issues to your insurance company. Be cautious of potential hazards, such as broken glass, downed power lines, or gas leaks.</p>
+    `
+,
+            "Mental Health Recovery": `
+        <h2>1. Prevention</h2>
+        <h3>1. Teach Stress Management Techniques</h3>
+        <strong>Mindfulness and Relaxation:</strong>
+        <p>Introduce mindfulness practices such as meditation, deep breathing exercises, and progressive muscle relaxation. These techniques can help individuals manage stress and anxiety effectively. Encourage regular practice of these techniques to build resilience against stress.</p>
+        <strong>Physical Activity:</strong>
+        <p>Promote regular physical exercise as a means to reduce stress and improve overall mental health. Activities such as walking, yoga, or team sports can be beneficial. Organize community fitness programs or workshops to encourage participation.</p>
+        <strong>Healthy Lifestyle Choices:</strong>
+        <p>Educate individuals on the importance of a balanced diet, adequate sleep, and hydration in maintaining mental health. Provide resources or workshops on nutrition and sleep hygiene.</p>
+
+        <h3>2. Promote Mental Health Awareness and Support Systems</h3>
+        <strong>Awareness Campaigns:</strong>
+        <p>Conduct community outreach programs to raise awareness about mental health issues and reduce stigma. Use social media, workshops, and informational materials to disseminate information. Highlight the importance of seeking help and the availability of mental health resources.</p>
+        <strong>Support Networks:</strong>
+        <p>Establish support systems within communities, such as mental health hotlines, peer support groups, and access to mental health professionals. Encourage open discussions about mental health in schools, workplaces, and community centers to foster a supportive environment.</p>
+
+        <h2>2. During Disasters</h2>
+        <h3>1. Provide Counseling Services</h3>
+        <strong>On-Site Counseling:</strong>
+        <p>Deploy mental health professionals to disaster-affected areas to provide immediate counseling and psychological first aid. This can help individuals cope with acute stress and trauma. Offer individual and group counseling sessions to address a range of emotional responses.</p>
+        <strong>Telehealth Services:</strong>
+        <p>Utilize telehealth platforms to provide remote counseling services for those unable to access in-person support. This can be especially important in areas with limited resources.</p>
+
+        <h3>2. Establish Peer Support Groups</h3>
+        <strong>Peer Support Programs:</strong>
+        <p>Create peer support groups where individuals can share their experiences and feelings in a safe environment. Trained facilitators can guide these sessions to ensure they are constructive. Encourage community members to connect with one another, fostering a sense of belonging and mutual support.</p>
+        <strong>Training Peer Supporters:</strong>
+        <p>Train community members to act as peer supporters, equipping them with skills to listen, empathize, and provide basic support to those in distress.</p>
+
+        <h3>3. Use Crisis Intervention Strategies</h3>
+        <strong>Crisis Hotlines:</strong>
+        <p>Set up crisis hotlines staffed by trained professionals who can provide immediate support and guidance to individuals in distress. Ensure that hotline information is widely disseminated and accessible to those in need.</p>
+        <strong>Crisis Response Teams:</strong>
+        <p>Form crisis response teams that include mental health professionals, social workers, and trained volunteers to provide on-the-ground support during disasters. Implement strategies for assessing and addressing the mental health needs of affected individuals.</p>
+
+        <h2>3. Post-Disasters</h2>
+        <h3>1. Encourage Trauma Recovery Programs</h3>
+        <strong>Trauma-Informed Care:</strong>
+        <p>Implement trauma recovery programs that focus on understanding the impact of trauma and providing appropriate support. This can include therapy, support groups, and community activities. Offer workshops on coping strategies and resilience-building techniques.</p>
+        <strong>Community Healing Events:</strong>
+        <p>Organize community events that promote healing and connection, such as art therapy sessions, group activities, and memorial services to honor those affected by the disaster.</p>
+
+        <h3>2. Offer Long-Term Mental Health Counseling</h3>
+        <strong>Access to Counseling Services:</strong>
+        <p>Ensure that long-term mental health counseling services are available to individuals who continue to experience distress after the disaster. This may include individual therapy, group therapy, and family counseling. Collaborate with local mental health organizations to provide ongoing support.</p>
+        <strong>Follow-Up Care:</strong>
+        <p>Implement follow-up care programs to check in on individuals who received initial support. This can help identify ongoing needs and provide additional resources as necessary. Encourage individuals to engage in self-care practices and seek help when needed.</p>
+    `,
+            "Different Disasters with Tips": `
+    <h1>User Education Guide for Emergencies: Detailed Safety Measures</h1>
+
+    <h2>1. Fires</h2>
+    <h3>Safety Measures</h3>
+
+    <h4>Before a Fire:</h4>
+    <ul>
+        <li><strong>Do:</strong> Install Smoke Alarms: Place smoke detectors on every level of your home and test them monthly.</li>
+        <li><strong>Do:</strong> Create an Escape Plan: Develop a fire escape plan with two exits from each room and a designated meeting place outside.</li>
+        <li><strong>Don’t:</strong> Ignore Fire Safety: Don’t neglect to practice your escape plan regularly with all family members.</li>
+        <li><strong>Don’t:</strong> Overload Electrical Outlets: Avoid plugging too many devices into a single outlet.</li>
+    </ul>
+
+    <h4>During a Fire:</h4>
+    <ul>
+        <li><strong>Do:</strong> Stay Low: If there is smoke, stay low to the ground to avoid inhalation.</li>
+        <li><strong>Do:</strong> Use Your Escape Plan: Follow your escape route and exit the building as quickly as possible.</li>
+        <li><strong>Don’t:</strong> Use Elevators: Always use stairs instead of elevators during a fire evacuation.</li>
+        <li><strong>Don’t:</strong> Go Back Inside: Do not re-enter a burning building for any reason.</li>
+    </ul>
+
+    <h4>After a Fire:</h4>
+    <ul>
+        <li><strong>Do:</strong> Call Emergency Services: If you see smoke or fire, call 911 immediately.</li>
+        <li><strong>Do:</strong> Stay Away from the Area: Keep a safe distance from the building until firefighters declare it safe.</li>
+        <li><strong>Don’t:</strong> Ignore Fire Damage: Do not enter a building that has been damaged by fire until it has been inspected.</li>
+        <li><strong>Don’t:</strong> Assume It’s Safe: Be cautious of potential hazards like structural damage or hidden embers.</li>
+    </ul>
+
+    <h2>2. Chemical Spills</h2>
+    <h3>Safety Measures</h3>
+
+    <h4>Before a Chemical Spill:</h4>
+    <ul>
+        <li><strong>Do:</strong> Know the Chemicals: Be aware of the chemicals you use at home or work and their potential hazards.</li>
+        <li><strong>Do:</strong> Create an Emergency Kit: Include items like gloves, masks, and absorbent materials for small spills.</li>
+        <li><strong>Don’t:</strong> Mix Chemicals: Avoid mixing different cleaning products, as this can create toxic fumes.</li>
+        <li><strong>Don’t:</strong> Ignore Safety Data Sheets (SDS): Familiarize yourself with the SDS for any chemicals you handle.</li>
+    </ul>
+
+    <h4>During a Chemical Spill:</h4>
+    <ul>
+        <li><strong>Do:</strong> Evacuate the Area: If a spill occurs, evacuate the area immediately and alert others.</li>
+        <li><strong>Do:</strong> Call Emergency Services: Contact local authorities or emergency services for assistance.</li>
+        <li><strong>Don’t:</strong> Try to Clean It Up Without Protection: Wear appropriate protective gear if you must handle the spill.</li>
+        <li><strong>Don’t:</strong> Ignore Ventilation: Ensure the area is well-ventilated if safe to do so.</li>
+    </ul>
+
+    <h4>After a Chemical Spill:</h4>
+    <ul>
+        <li><strong>Do:</strong> Follow Cleanup Procedures: If trained, follow proper procedures for cleaning up the spill.</li>
+        <li><strong>Do:</strong> Report the Incident: Notify your supervisor or local authorities about the spill.</li>
+        <li><strong>Don’t:</strong> Return to the Area Too Soon: Wait for authorities to declare the area safe before re-entering.</li>
+        <li><strong>Don’t:</strong> Assume All Chemicals Are Safe: Treat all spills as potentially hazardous until confirmed otherwise.</li>
+    </ul>
+
+    <h2>3. Nuclear Accidents</h2>
+    <h3>Safety Measures</h3>
+
+    <h4>Before a Nuclear Accident:</h4>
+    <ul>
+        <li><strong>Do:</strong> Know Your Risk: Understand if you live near a nuclear facility and familiarize yourself with emergency plans.</li>
+        <li><strong>Do:</strong> Create an Emergency Kit: Include potassium iodide tablets, water, food, and a battery-powered radio.</li>
+        <li><strong>Don’t:</strong> Ignore Emergency Alerts: Stay informed about local emergency procedures and alerts.</li>
+        <li><strong>Don’t:</strong> Neglect Your Plan: Have a family emergency plan that includes evacuation routes and communication methods.</li>
+    </ul>
+
+    <h4>During a Nuclear Accident:</h4>
+    <ul>
+        <li><strong>Do:</strong> Stay Indoors: If a nuclear accident occurs, stay indoors and seal windows and doors to minimize exposure.</li>
+        <li><strong>Do:</strong> Listen for Instructions: Follow instructions from local authorities regarding evacuation or sheltering in place.</li>
+        <li><strong>Don’t:</strong> Go Outside: Avoid going outside unless instructed by authorities.</li>
+        <li><strong>Don’t:</strong> Use Air Conditioning: Turn off air conditioning and ventilation systems to prevent outside air from entering.</li>
+    </ul>
+
+    <h4>After a Nuclear Accident:</h4>
+    <ul>
+        <li><strong>Do:</strong> Monitor Updates: Keep listening to local news for updates and instructions from emergency services.</li>
+        <li><strong>Do:</strong> Follow Decontamination Procedures: If exposed, follow decontamination procedures as advised by authorities.</li>
+        <li><strong>Don’t:</strong> Assume It’s Safe: Do not return to the area until authorities declare it safe.</li>
+    </ul>`,
+            "First Aid and CPR":  ` <h1>First Aid Techniques and Emergency Preparedness</h1>
+
+    <h2>1. CPR (Cardiopulmonary Resuscitation)</h2>
+    <p><strong>Importance:</strong> CPR is a lifesaving technique used in emergencies when someone's heartbeat or breathing has stopped. It helps maintain blood flow to vital organs until professional medical help arrives.</p>
+    <p><strong>Indications:</strong></p>
+    <ul>
+        <li>Unresponsive person who is not breathing or breathing abnormally.</li>
+        <li>Cardiac arrest due to causes like drowning, choking, or heart attack.</li>
+    </ul>
+    <p><strong>Procedure:</strong></p>
+    <ul>
+        <li><strong>Assess the Scene:</strong> Ensure the environment is safe.</li>
+        <li><strong>Check Responsiveness:</strong> Tap the person and shout, “Are you okay?”</li>
+        <li><strong>Call for Help:</strong> If alone, call 911 or ask someone to do so. Retrieve an AED if available.</li>
+        <li><strong>Check Breathing:</strong> Look for normal breathing for 10 seconds. If absent, start CPR.</li>
+        <li><strong>Position the Person:</strong> Lay them flat on their back.</li>
+        <li><strong>Chest Compressions:</strong>
+            <ul class="step">
+                <li>Kneel beside the person, place hands on the chest, and compress 2 inches deep at 100-120 compressions per minute.</li>
+                <li>Allow the chest to recoil fully.</li>
+            </ul>
+        </li>
+        <li><strong>Rescue Breaths (if trained):</strong> After 30 compressions, give 2 breaths.</li>
+        <li><strong>Use an AED:</strong> If available, follow the voice prompts of the AED.</li>
+    </ul>
+    <p><span class="important">Important Considerations:</span></p>
+    <ul>
+        <li>Perform hands-only CPR if untrained.</li>
+    </ul>
+
+    <h2>2. Wound Care (Cleaning, Dressing, and Bandaging)</h2>
+    <p><strong>Importance:</strong> Proper wound care is essential to prevent infection and promote healing.</p>
+    <p><strong>Types of Wounds:</strong></p>
+    <ul>
+        <li>Abrasions: Scrapes on the skin.</li>
+        <li>Lacerations: Cuts that may be deep or jagged.</li>
+        <li>Punctures: Wounds caused by sharp objects.</li>
+        <li>Avulsions: Portions of skin or tissue are torn away.</li>
+    </ul>
+    <p><strong>Procedure:</strong></p>
+    <ul>
+        <li><strong>Wash Your Hands:</strong> Wash thoroughly with soap and water or use hand sanitizer.</li>
+        <li><strong>Control Bleeding:</strong> Apply gentle pressure with a clean cloth or sterile gauze.</li>
+        <li><strong>Clean the Wound:</strong>
+            <ul class="step">
+                <li>Rinse the wound under clean, running water to remove dirt and debris.</li>
+                <li>Do not use hydrogen peroxide or alcohol directly on the wound.</li>
+                <li>Use mild soap around the wound area, but not inside it.</li>
+            </ul>
+        </li>
+        <li><strong>Apply Antibiotic Ointment:</strong> Use a thin layer of ointment like Neosporin to prevent infection.</li>
+        <li><strong>Dress the Wound:</strong>
+            <ul class="step">
+                <li>Cover with an adhesive bandage or sterile gauze pads.</li>
+                <li>Ensure dressing is snug but not tight to restrict blood flow.</li>
+            </ul>
+        </li>
+        <li><strong>Change the Dressing:</strong> Change daily or when wet or dirty.</li>
+        <li><strong>Monitor for Infection:</strong> Watch for signs like redness, swelling, or pus.</li>
+    </ul>
+
+    <h2>3. Bleeding Control (Tourniquets, Pressure Bandages)</h2>
+    <p><strong>Importance:</strong> Controlling bleeding is critical to prevent shock and save lives.</p>
+    <p><strong>Types of Bleeding:</strong></p>
+    <ul>
+        <li>Arterial Bleeding: Bright red blood that spurts with each heartbeat.</li>
+        <li>Venous Bleeding: Dark red blood that flows steadily.</li>
+        <li>Capillary Bleeding: Slow oozing from small vessels.</li>
+    </ul>
+    <p><strong>Procedure:</strong></p>
+    <ul>
+        <li><strong>Assess the Severity:</strong> Identify the type and severity of bleeding.</li>
+        <li><strong>Apply Direct Pressure:</strong> Use a clean cloth or sterile gauze to apply pressure directly to the wound for 5-10 minutes.</li>
+        <li><strong>Elevate the Injury:</strong> Raise the injured area above the heart level if possible.</li>
+        <li><strong>Use a Pressure Bandage:</strong> Wrap a clean cloth or gauze tightly around the wound if bleeding continues.</li>
+        <li><strong>Tourniquet Application:</strong> If necessary, apply a tourniquet above the injury and note the time of application.</li>
+    </ul>
+
+    <h2>4. Fracture Immobilization (Splints, Casts)</h2>
+    <p><strong>Importance:</strong> Proper immobilization prevents further injury and promotes healing.</p>
+    <p><strong>Types of Fractures:</strong></p>
+    <ul>
+        <li>Closed Fracture: The bone is broken but the skin remains intact.</li>
+        <li>Open Fracture: The bone breaks through the skin, increasing the risk of infection.</li>
+    </ul>
+    <p><strong>Procedure:</strong></p>
+    <ul>
+        <li><strong>Assess the Injury:</strong> Look for signs such as swelling, deformity, or inability to move.</li>
+        <li><strong>Apply a Splint:</strong> Use a rigid object to immobilize the fracture, securing it with bandages or cloth strips.</li>
+        <li><strong>Monitor for Circulation:</strong> Check for warmth, color, and sensation in the fingers or toes beyond the splint.</li>
+    </ul>
+
+    <h2>5. Burn Treatment (Cooling, Dressing)</h2>
+    <p><strong>Importance:</strong> Proper treatment of burns minimizes pain, prevents infection, and promotes healing.</p>
+    <p><strong>Types of Burns:</strong></p>
+    <ul>
+        <li>First-Degree Burns: Redness, minor swelling.</li>
+        <li>Second-Degree Burns: Blisters, severe pain.</li>
+        <li>Third-Degree Burns: White, charred appearance, numbness.</li>
+    </ul>
+    <p><strong>Procedure:</strong></p>
+    <ul>
+        <li><strong>Cool the Burn:</strong> Run cool (not cold) water over the burn for 10-20 minutes.</li>
+        <li><strong>Cover the Burn:</strong> After cooling, cover with sterile, non-stick dressing.</li>
+        <li><strong>Do Not Pop Blisters:</strong> Leave blisters intact to avoid infection.</li>
+    </ul>
+
+    <h2>6. Choking First Aid (Heimlich Maneuver)</h2>
+    <p><strong>Importance:</strong> The Heimlich maneuver is used to dislodge an object blocking the airway in a choking person.</p>
+    <p><strong>Indications:</strong> The person cannot speak, cough, or breathe and may be clutching their throat.</p>
+    <p><strong>Procedure for Adults and Children Over 1 Year:</strong></p>
+    <ul>
+        <li><strong>Assess the Situation:</strong> If the person can still cough or speak, encourage them to cough.</li>
+        <li><strong>Call for Help:</strong> If the person cannot breathe, call 911.</li>
+        <li><strong>Perform Abdominal Thrusts:</strong> Stand behind the person, make a fist, and thrust inward and upward just above the navel.</li>
+        <li><strong>If Unresponsive:</strong> Begin CPR and check the mouth for the object.</li>
+    </ul>
+
+    <h2>7. First Aid Kit Essentials</h2>
+    <p><strong>Importance:</strong> A well-stocked first aid kit is crucial for addressing minor injuries and emergencies effectively.</p>
+    <p><strong>Recommended Items:</strong></p>
+    <ul>
+        <li>Adhesive Bandages</li>
+        <li>Sterile Gauze Pads</li>
+        <li>Antiseptic Wipes</li>
+        <li>Antibiotic Ointment</li>
+        <li>Medical Tape</li>
+        <li>Elastic Bandage</li>
+        <li>Scissors</li>
+        <li>Tweezers</li>
+        <li>Instant Cold Packs</li>
+        <li>Pain Relievers</li>
+        <li>Thermometer</li>
+        <li>Burn Cream or Gel</li>
+        <li>First Aid Manual</li>
+    </ul>`,
+            "Emergency Supplies with Usage Instructions": `<h1>Essential Emergency Supplies: Detailed Information and Usage Instructions</h1>
+
+    <h2>1. First Aid Kit</h2>
+    <h3>Importance:</h3>
+    <p>A well-stocked first aid kit is crucial for treating minor injuries and stabilizing more serious conditions until professional medical help can be obtained. It can be a lifesaver in emergencies, especially when access to medical facilities is limited.</p>
+
+    <h3>Contents:</h3>
+    <ul>
+        <li>Adhesive Bandages: Various sizes for covering small cuts and abrasions.</li>
+        <li>Sterile Gauze Pads and Adhesive Tape: For larger wounds to control bleeding.</li>
+        <li>Antiseptic Wipes or Solution: To clean wounds and prevent infection.</li>
+        <li>Antibiotic Ointment: For application on cuts and scrapes to reduce infection risk.</li>
+        <li>Tweezers: For removing splinters or debris from wounds.</li>
+        <li>Scissors: For cutting tape, gauze, or clothing if necessary.</li>
+        <li>Elastic Bandage (e.g., Ace bandage): For wrapping sprains or strains.</li>
+        <li>Pain Relievers: Such as ibuprofen or acetaminophen for pain management.</li>
+        <li>Thermometer: To check for fever.</li>
+        <li>Instant Cold Packs: For reducing swelling and pain.</li>
+        <li>First Aid Manual: A guide for treating various injuries and emergencies.</li>
+    </ul>
+
+    <h3>Usage Instructions:</h3>
+    <ul>
+        <li><strong>Assess the Situation:</strong> Before using the first aid kit, evaluate the injury or medical condition. Determine if immediate medical attention is required.</li>
+        <li><strong>Wash Your Hands:</strong> If possible, wash your hands with soap and water or use hand sanitizer before providing first aid to prevent infection.</li>
+        <li><strong>Clean the Wound:</strong> Use antiseptic wipes or solution to clean the area around the wound. Gently pat the area dry with a clean cloth or gauze.</li>
+        <li><strong>Apply a Dressing:</strong> For minor cuts, apply an adhesive bandage directly over the wound. For larger wounds, place a sterile gauze pad over the injury and secure it with adhesive tape.</li>
+        <li><strong>Control Bleeding:</strong> If the wound is bleeding heavily, apply direct pressure with a clean cloth or gauze. If blood soaks through, do not remove the original cloth; instead, add more layers and continue applying pressure.</li>
+        <li><strong>Treat Sprains or Strains:</strong> For sprains, wrap the affected area with an elastic bandage, ensuring it is snug but not too tight. Elevate the injured limb and apply an instant cold pack to reduce swelling.</li>
+        <li><strong>Monitor for Infection:</strong> After initial treatment, keep an eye on the wound for signs of infection, such as increased redness, swelling, or pus. Seek medical attention if these symptoms occur.</li>
+        <li><strong>Document Treatment:</strong> If possible, write down what treatment was given, including the time and any medications administered, for future reference.</li>
+    </ul>
+
+    <h2>2. Flashlights</h2>
+    <h3>Importance:</h3>
+    <p>Flashlights are essential for providing light during power outages or emergencies, helping you navigate safely in the dark and signaling for help if needed.</p>
+
+    <h3>Types:</h3>
+    <ul>
+        <li>Handheld Flashlights: Portable and easy to carry; ideal for personal use.</li>
+        <li>Headlamps: Hands-free lighting that can be worn on the head; useful for tasks requiring both hands.</li>
+        <li>Lanterns: Provide broader illumination for larger areas; great for group settings.</li>
+    </ul>
+
+    <h3>Usage Instructions:</h3>
+    <ul>
+        <li><strong>Check the Batteries:</strong> Before using a flashlight, ensure it has fresh batteries installed. If it’s rechargeable, make sure it is fully charged.</li>
+        <li><strong>Turn On the Flashlight:</strong> Locate the power switch, which is usually located on the body of the flashlight. For headlamps, the switch may be on the front or side.</li>
+        <li><strong>Adjust Brightness (if applicable):</strong> If your flashlight has adjustable brightness settings, select the appropriate level based on your needs (e.g., low for close tasks, high for long-distance visibility).</li>
+        <li><strong>Use the Flashlight:</strong> Point the flashlight in the direction you need to illuminate. For handheld flashlights, hold it securely in one hand. For headlamps, adjust the strap for a comfortable fit.</li>
+        <li><strong>Signal for Help (if needed):</strong> If you are in a situation where you need to signal for help, use the flashlight to create a pattern (e.g., three short flashes followed by three long flashes).</li>
+        <li><strong>Turn Off After Use:</strong> When finished, turn off the flashlight to conserve battery life. If it’s rechargeable, place it back on the charger if applicable.</li>
+        <li><strong>Store Properly:</strong> After use, store the flashlight in a cool, dry place, ensuring it is easily accessible for future emergencies.</li>
+    </ul>
+
+    <h2>3. Batteries</h2>
+    <h3>Importance:</h3>
+    <p>Batteries are essential for powering flashlights, radios, and other emergency devices. Having a supply of batteries ensures that you can stay connected and safe during power outages or emergencies.</p>
+
+    <h3>Types:</h3>
+    <ul>
+        <li>Alkaline Batteries: Commonly used for household devices; available in various sizes (AA, AAA, C, D).</li>
+        <li>Rechargeable Batteries: Can be reused multiple times; ideal for flashlights and other devices.</li>
+        <li>Lithium Batteries: Long-lasting and suitable for high-drain devices.</li>
+    </ul>
+
+    <h3>Usage Instructions:</h3>
+    <ul>
+        <li><strong>Select the Right Battery Type:</strong> Check the device you intend to power for the required battery size and type. Common sizes include AA, AAA, C, D, and 9V.</li>
+        <li><strong>Install Batteries:</strong> Open the battery compartment, insert the batteries according to polarity (+ and -), and securely close the compartment.</li>
+        <li><strong>Check Battery Life:</strong> If the device has a battery indicator, check it to ensure the batteries are functioning. If the device does not turn on, replace the batteries with fresh ones.</li>
+        <li><strong>Store Batteries Properly:</strong> Keep batteries in a cool, dry place, away from direct sunlight and moisture.</li>
+        <li><strong>Dispose of Used Batteries:</strong> Follow local regulations for disposing of batteries, usually through designated recycling programs.</li>
+    </ul>
+
+    <h2>4. Water and Non-Perishable Food</h2>
+    <h3>Importance:</h3>
+    <p>Access to clean water and food is critical during emergencies, especially when supplies are disrupted. Having a stockpile ensures you can sustain yourself and your family.</p>
+
+    <h3>Water:</h3>
+    <ul>
+        <li><strong>Recommended Amount:</strong> Store at least one gallon of water per person per day for at least three days.</li>
+        <li><strong>Storage:</strong> Use food-grade water containers and keep them in a cool, dark place.</li>
+        <li><strong>Purification:</strong> Consider water purification tablets or filters for emergency situations.</li>
+    </ul>
+
+    <h3>Non-Perishable Food:</h3>
+    <ul>
+        <li><strong>Types:</strong> Include canned goods (vegetables, fruits, meats), dried fruits, nuts, granola bars, and freeze-dried meals.</li>
+        <li><strong>Storage:</strong> Keep food in a cool, dry place, and check expiration dates regularly.</li>
+    </ul>
+
+    <h3>Usage Instructions:</h3>
+    <h4>Water Usage:</h4>
+    <ul>
+        <li><strong>Daily Consumption:</strong> Plan to use at least one gallon of water per person per day for drinking, cooking, and hygiene.</li>
+        <li><strong>Purification:</strong> If you suspect water contamination, use purification tablets or a water filter according to the manufacturer’s instructions before consumption.</li>
+    </ul>
+
+    <h4>Food Usage:</h4>
+    <ul>
+        <li><strong>Check Expiration Dates:</strong> Before consuming, check the expiration dates on non-perishable food items. Discard any that are expired or show signs of spoilage.</li>
+        <li><strong>Open Canned Goods:</strong> Use a can opener to open canned goods. If the can is bulging or leaking, do not consume the contents.</li>
+        <li><strong>Prepare Meals:</strong> For items that require cooking (like freeze-dried meals), follow the preparation instructions on the packaging. Use clean water for cooking if necessary.</li>
+        <li><strong>Rationing:</strong> In prolonged emergencies, ration food and water to ensure supplies last. A general guideline is to consume water first, followed by food.</li>
+    </ul>
+
+    <h4>Storage Instructions:</h4>
+    <ul>
+        <li><strong>Store Properly:</strong> After opening food items, store leftovers in airtight containers to prevent spoilage. Keep food in a cool, dry place to extend shelf life.</li>
+    </ul>
+
+    <h2>5. Clothing and Blankets</h2>
+    <h3>Importance:</h3>
+    <p>Having appropriate clothing and blankets is essential for maintaining body heat and comfort during emergencies, especially in extreme weather conditions.</p>
+
+    <h3>Clothing:</h3>
+    <ul>
+        <li><strong>Types:</strong> Include warm clothing (sweaters, thermal underwear), waterproof jackets, sturdy shoes, and hats/gloves.</li>
+        <li><strong>Storage:</strong> Keep clothing in a dry, accessible location, preferably in a waterproof bag or container.</li>
+    </ul>
+
+    <h3>Blankets:</h3>
+    <ul>
+        <li><strong>Types:</strong> Include thermal blankets, sleeping bags, and emergency mylar blankets.</li>
+        <li><strong>Storage:</strong> Store blankets in a cool, dry place, and ensure they are easily accessible.</li>
+    </ul>
+
+    <h3>Usage Instructions:</h3>
+    <h4>Dressing for Warmth:</h4>
+    <ul>
+        <li><strong>Layering:</strong> Wear multiple layers of clothing to trap heat. Start with moisture-wicking base layers, add insulating layers (like fleece or wool), and finish with a waterproof outer layer.</li>
+        <li><strong>Protect Extremities:</strong> Wear hats, gloves, and warm socks to minimize heat loss from your head, hands, and feet.</li>
+    </ul>`
+        };
+
+        // Get the div where the sections will be displayed
+        const container = document.getElementById('disaster-sections');
+
+        // Function to create the sections dynamically
+        Object.keys(sections).forEach(section => {
+            // Create the section heading
+            const sectionHeading = document.createElement('div');
+            sectionHeading.classList.add('section-heading');
+            sectionHeading.textContent = section;
+
+            // Create the content for each section
+            const sectionContent = document.createElement('div');
+            sectionContent.classList.add('section-content');
+            sectionContent.innerHTML = sections[section];
+
+            // Add the event listener to toggle the display of content
+            sectionHeading.addEventListener('click', () => {
+                const isVisible = sectionContent.style.display === 'block';
+                sectionContent.style.display = isVisible ? 'none' : 'block';
+            });
+
+            // Append the heading and content to the container
+            container.appendChild(sectionHeading);
+            container.appendChild(sectionContent);
+        });
+    </script>
+
+</body>
+</html>

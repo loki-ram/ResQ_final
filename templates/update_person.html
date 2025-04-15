@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Person Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #FF6347;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background: #222;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+            
+        }
+
+        label {
+            font-size: 14px;
+            color: white;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input[type="file"] {
+            padding: 6px;
+            color:white;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #FF6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #FF6347;
+        }
+    </style>
+</head>
+<body>
+    <h1>Update Person Details</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="injured">Injured</option>
+            <option value="dead">Dead</option>
+            <option value="missing">Missing</option>
+        </select>
+
+        <label for="details">Details:</label>
+        <textarea id="details" name="details"></textarea>
+
+        <label for="contact_details">Contact Details:</label>
+        <textarea id="contact_details" name="contact_details"></textarea>
+
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image" accept="image/*">
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

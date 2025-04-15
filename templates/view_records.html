@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Person Records</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black; /* Black background */
+            color: white; /* White text */
+        }
+
+        h1 {
+            text-align: center;
+            color: #FF6347; /* Tomato color */
+            margin-top: 20px;
+            font-size: 2.5em;
+            text-transform: uppercase;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #1e1e1e; /* Dark gray for table background */
+        }
+
+        th, td {
+            border: 1px solid #333; /* Light gray border for table cells */
+            padding: 10px;
+            text-align: center;
+            font-size: 1em;
+        }
+
+        th {
+            background-color: #FF6347; /* Tomato color for headers */
+            color: white;
+            font-size: 1.2em;
+        }
+
+        tr:nth-child(even) {
+            background-color: #2a2a2a; /* Slightly lighter gray for even rows */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #1e1e1e; /* Dark gray for odd rows */
+        }
+
+        img {
+            border: 2px solid #FF6347; /* Highlighted border for images */
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.1); /* Zoom effect on hover */
+            box-shadow: 0 0 10px #FF6347; /* Glowing border effect */
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9); /* Black with opacity */
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            border: 3px solid #FF6347; /* Highlighted border for modal image */
+            border-radius: 10px;
+        }
+
+        .modal-caption {
+            text-align: center;
+            color: #FF6347; /* Tomato color for caption */
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #FF6347; /* Tomato color for close button hover */
+        }
+
+        /* Add animation to modal content */
+        .modal-content {
+            animation: zoom 0.6s;
+        }
+
+        @keyframes zoom {
+            from { transform: scale(0.7); opacity: 0.5; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Person Records</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Details</th>
+            <th>Contact Details</th>
+            <th>Image</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record[0] }}</td>
+            <td>{{ record[1] }}</td>
+            <td>{{ record[2] }}</td>
+            <td>{{ record[3] }}</td>
+            <td>{{ record[4] }}</td>
+            <td>
+                {% if record[5] %}
+                    <img src="{{ url_for('volunteer.uploaded_file', filename=record[5].split('/')[-1]) }}" alt="Image" width="100" style="cursor: pointer;" onclick="enlargeImage(this)">
+                {% else %}
+                    No Image
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
+    <script>
+        // Function to enlarge image
+        function enlargeImage(img) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            const caption = document.getElementById("modalCaption");
+
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            caption.innerHTML = img.alt || "No caption available.";
+        }
+
+        // Function to close modal
+        function closeModal() {
+            const modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>
